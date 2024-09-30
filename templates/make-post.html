@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Website</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="nav-bar">
+        <ul>
+            <li class="title">
+                My Blog With Flask
+            </li>
+        </ul>
+    </div>
+    <div class="inputs">
+        {% if post %}
+        <form action="{{ url_for('save_edited_post', post_id=post.id) }}" method="post">
+            <input value='{{ post["title"] }}' name="title" class="title" type="text" placeholder="Title" required>
+            <input value='{{ post["subtitle"] }}' name="subtitle" class="subtitle" type="text" placeholder="Subtitle" required>
+            <textarea name="body" class="body" placeholder="Body" required>{{ post["body"] }}</textarea>
+            <input value='{{ post["author"] }}' name="author" class="author" type="text" placeholder="Author" required>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Save</button>
+            </div>
+        </form>
+        {% else %}
+        <form action="/make-post" method="post">
+            <input name="title" class="title" type="text" placeholder="Title" required>
+            <input name="subtitle" class="subtitle" type="text" placeholder="Subtitle" required>
+            <textarea name="body" class="body" placeholder="Body" required></textarea>
+            <input name="author" class="author" type="text" placeholder="Author" required>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
